@@ -9,36 +9,36 @@ The Car Sales API allows you to:
 - Track customer communications about specific cars
 - Handle relationships between cars and communications
 
-## Installation
+## Prerequisites
 
-This project uses Poetry for dependency management. Make sure you have Python 3.10 or higher installed.
+- Docker installed on your system
+- Make (usually pre-installed on Unix-based systems)
 
-1. Install Poetry (if not already installed):
+## Quick Start with Docker
+
+The application is containerized using Docker for easy setup and deployment.
+
+1. Setup the environment:
 ```bash
-curl -sSL https://install.python-poetry.org | python3 -
+make setup
 ```
 
-2. Clone the repository and install dependencies:
+2. Build and run the application:
 ```bash
-cd fastapi_car_sales
-poetry install
-```
-
-## Dependencies
-
-- fastapi==0.95.2
-- uvicorn==0.22.0
-- sqlalchemy==1.4.46
-- pydantic==1.10.7
-
-## Running the Application
-
-Start the development server:
-```bash
-poetry run uvicorn main:app --reload
+make run
 ```
 
 The API will be available at `http://localhost:8000`
+
+### Available Make Commands
+
+- `make setup` - Create necessary directories with proper permissions
+- `make build` - Build Docker image
+- `make run` - Build and run Docker container
+- `make stop` - Stop and remove Docker container
+- `make clean` - Stop container and remove image
+- `make test` - Run API endpoint tests
+- `make help` - Show available commands
 
 ## API Endpoints
 
@@ -124,6 +124,35 @@ The API returns appropriate HTTP status codes:
 - 404: Resource not found
 - 400: Bad request (validation error)
 
-## Database
+## Data Persistence
 
-The application uses SQLite for data storage. The database file `car_sales.db` will be created automatically when you first run the application.
+The application uses SQLite for data storage. The database file is stored in a Docker volume at `/data/db` for persistence between container restarts.
+
+## Development
+
+For development purposes, the application uses:
+- FastAPI for the web framework
+- SQLAlchemy for database ORM
+- Pydantic for data validation
+- Docker for containerization
+
+## Testing
+
+You can run the basic API tests using:
+```bash
+make test
+```
+
+This will:
+1. Start the application if not running
+2. Run a series of curl commands to test the main endpoints
+3. Display the results
+
+## Cleanup
+
+To stop the application and clean up resources:
+```bash
+make clean
+```
+
+This will stop the container and remove the Docker image.
