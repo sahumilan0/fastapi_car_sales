@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "fastapi-car-sales"
+version = "0.1.0"
+description = "FastAPI application for managing car sales and customer communications"
+authors = ["Devin"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "0.95.2"
+uvicorn = {version = "0.22.0", extras = ["standard"]}
+sqlalchemy = "1.4.46"
+pydantic = "1.10.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
